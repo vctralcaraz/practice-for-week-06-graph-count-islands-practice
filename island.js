@@ -1,15 +1,46 @@
 function getNeighbors(row, col, matrix) {
-  
+  let neighbors = [];
+  let top = row - 1;
+  let right = col + 1;
+  let bottom = row + 1;
+  let left = col - 1;
+
   // Check top
+  if(top >= 0 && matrix[top][col] === 1)
+    neighbors.push([top, col]);
+
   // Check top right
+  if(top >= 0 && right < matrix[top].length && matrix[top][right] === 1) 
+    neighbors.push([top, right]);
+
   // Check right
+  if(right < matrix[row].length && matrix[row][right] === 1) 
+    neighbors.push([row, right]);
+
   // Check bottom right
+  if(bottom < matrix.length && 
+      right < matrix[bottom].length && 
+      matrix[bottom][right] === 1)
+    neighbors.push([bottom, right]);
+
   // Check bottom
+  if(bottom < matrix.length && matrix[bottom][col] === 1)
+    neighbors.push([bottom, col]);
+
   // Check bottom left
+  if(bottom < matrix.length && left >= 0 && matrix[bottom][left] === 1)
+    neighbors.push([bottom, left]);
+
   // Check left
+  if(left >= 0 && matrix[row][left] === 1)
+    neighbors.push([row, left]);
+
   // Check top left
+  if(top >= 0 && left >= 0 && matrix[top][left] === 1)
+    neighbors.push([top, left]);
+
   // Return neighbors
-  
+  return neighbors;
   // Your code here
 }
 
