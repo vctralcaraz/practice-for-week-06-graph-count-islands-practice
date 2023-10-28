@@ -47,21 +47,55 @@ function getNeighbors(row, col, matrix) {
 function countIslands(matrix) {
   
   // Create a visited set to store visited nodes
+  const visited = new Set();
+
   // Initialize count to 0
+  let count = 0;
+
   // Iterate through all indices in matrix
-    // If an index contains a 1 and has not been visited, 
-    // increment island count and start traversing neighbors
-      // DO THE THING (increment island count by 1)
-      // Initialize a stack with current index
-      // Add stringified version of current index to the visited set
-      // While stack contains elements
-        // Pop element from stack
-        // Get valid neighbors of current element
-        // Iterate over neigbors
-          // If neighbor has not been visited
-            // Add neighbor to stack
-            // Mark neighbor as visited
+  for(let i = 0; i < matrix.length; i++) {
+    for(let j = 0; j < matrix[i].length; j++) {
+      // If an index contains a 1 and has not been visited, 
+      // increment island count and start traversing neighbors
+      if(matrix[i][j] === 1 && !visited.has([i, j].toString())) {
+        // DO THE THING (increment island count by 1)
+        count++;
+        
+        // Initialize a stack with current index
+        let stack = [[i, j]];
+
+        // Add stringified version of current index to the visited set
+        visited.add([i, j].toString());
+
+        // While stack contains elements
+        while(stack.length > 0) {
+          // Pop element from stack
+          let node = stack.pop();
+          let [row, col] = node;
+
+          // Get valid neighbors of current element
+          let neighbors = getNeighbors(row, col, matrix);
+
+          // Iterate over neigbors
+          neighbors.forEach(el => {
+            // If neighbor has not been visited
+            if(!visited.has(el.toString())) {
+              // Add neighbor to stack
+              stack.push(el);
+              // Mark neighbor as visited
+              visited.add(el.toString());
+
+            }
+
+          })
+
+        }
+      }
+    }
+  }
+            
   // Return island count
+  return count;
   
   // Your code here
 }
